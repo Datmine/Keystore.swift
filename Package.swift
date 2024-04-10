@@ -22,6 +22,7 @@ let package = Package(
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.8.1"),
         .package(url: "https://github.com/Boilertalk/secp256k1.swift.git", from: "0.1.7"),
         .package(name: "Scrypt", url: "https://github.com/greymass/swift-scrypt.git", from: "1.0.0"),
+        .package(url: "https://github.com/MyEtherWallet/bls-eth-swift.git", .upToNextMajor(from: "1.0.0")),
 
         // Test dependencies
         .package(url: "https://github.com/Quick/Quick.git", from: "5.0.1"),
@@ -34,6 +35,7 @@ let package = Package(
                 .product(name: "CryptoSwift", package: "CryptoSwift"),
                 .product(name: "secp256k1", package: "secp256k1.swift"),
                 .product(name: "Scrypt", package: "Scrypt"),
+                .product(name: "bls-eth-swift", package: "bls-eth-swift"),
             ],
             path: "Sources",
             sources: ["Keystore"]),

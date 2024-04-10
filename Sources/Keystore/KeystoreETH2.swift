@@ -6,15 +6,28 @@ public struct KeystoreETH2: Codable {
 
     // MARK: - Public API
 
-    /// Creates a new keystore for the given private key and password.
+    /// Creates a keystore for the given privateKey with the given password.
     ///
     /// - parameter privateKey: The private key to encrypt.
     /// - parameter password: The password to use for the encryption.
+    /// - parameter kdf: The key derivation function to use.
+    /// - parameter cipher: The cipher to use for encryption.
+    /// - parameter checksum: The password checksum to use to detect bad passwords during decryption.
+    /// - parameter rounds: The number of rounds for the key derivation function to use. Defaults to a secure number.
     ///
-    /// - throws: Error if any step fails.
-//    public init(privateKey: [UInt8], password: String, kdf: Keystore.Crypto.KDFType = .scrypt, cipher: IVBlockModeType = .ctr, rounds: Int? = nil) throws {
-//        self = try KeystoreFactory.keystore(from: privateKey, password: password, kdf: kdf, cipher: cipher, rounds: rounds)
-//    }
+    /// - returns: The KeystoreETH2 object with the encrypted private key.
+    ///
+    /// - throws: Some `KeystoreETH2Factory.Error` if any step fails.
+    public init(
+        from privateKey: [UInt8],
+        password: String,
+        kdf: KeystoreETH2.KDFModule.KDFType,
+        cipher: KeystoreETH2.CipherModule.CipherType,
+        checksum: KeystoreETH2.ChecksumModule.ChecksumType,
+        rounds: Int = 262144
+    ) throws {
+        self = try KeystoreETH2Factory.keystore(from: privateKey, password: password, kdf: kdf, cipher: cipher, checksum: checksum, rounds: rounds)
+    }
 
     /// Extracts the private key from this keystore with the given password.
     ///
